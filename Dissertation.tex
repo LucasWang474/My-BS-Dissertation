@@ -525,11 +525,8 @@ Garfield++ 的代码开源公布在 GitLab 上，如果你想 build Garfiled++ �
     \label{fig_deep-learning}
 \end{figure}
 
-对于我们的网络模型，Inputs 即我们在 \ref{sub:二维径迹重建}中生成的径迹图像。径迹图像的每一个像素所在的坐标代表了一个特定读出电极的坐标，像素值代表了对应读出电极上的电子数目。
 
-Predictions 代表我们的网络模型的输出，在该模型中，输出是图片中裂变碎片径迹所代表的核素种类。
-
-Architecture 对应模型的核心，对于我们的网络模型，Architecture 是 ResNet50。
+本论文使用的迁移学习，因此建立神经网路模型时网络参数的侧重点在于 Inputs，Prediction 以及 Architecture。对于我们的网络模型，Inputs 即我们在 \ref{sub:二维径迹重建}中生成的径迹图像。径迹图像的每一个像素所在的坐标代表了一个特定读出电极的坐标，像素值代表了对应读出电极上的电子数目。Predictions 代表我们的网络模型的输出，在该模型中，输出是图片中裂变碎片径迹所代表的核素种类。Architecture，即网络架构，是模型的核心。
 
 
 \subsection{网络训练}
@@ -538,13 +535,20 @@ fastai 是一个基于 PyTorch 的深度学习类库，为深度学习使用者�
 
 使用 fastai 训练我们的裂变事件分类网络模型的核心代码如下：
 
+（1）导入 fastai 以及相关的 CNN 类库
 \begin{lstlisting}[language = python]
-# import fastbook 类库
-import fastbook
 from fastbook import *
+from torchvision.models import *
+
+from fastai.vision import *
+from fastai.vision.models import *
 from fastai.vision.widgets import *
+from fastai.vision.learner import model_meta
+\end{lstlisting}
 
-
+（2）创建神经网络数据集
+\begin{lstlisting}[language = python]
+img_dir = Path('PATH_TO_IMAGES')
 tracks = DataBlock(
     blocks=(ImageBlock, CategoryBlock),
     get_items=get_image_files, 
@@ -552,13 +556,43 @@ tracks = DataBlock(
     get_y=get_img_Z)
 
 dls = tracks.dataloaders(img_dir)
-learn = cnn_learner(dls, resnet18, metrics=accuracy)
+\end{lstlisting}
+
+
+（3）神经网络训练
+\begin{lstlisting}[language = python]
+learn = cnn_learner(dls, YOUR_ARCHITECTURE, metrics=accuracy)
 learn.fine_tune(10)
 \end{lstlisting}
 
 
+
+
+\subsubsection{网络架构（Architecture）的选择}
+本论文测试了 CNN 下流行的架构，包括 ResNet, XResnet, DenseNet, VGG 等（见表 \ref{tbl_architectures}）。
+
+\begin{table}[H]
+    \centering
+    \caption{神经网络架构}
+    \begin{tabular}{cc} % 控制表格的格式，可以是l,c,r
+    \toprule
+    架构名 & 具体参数 \\
+    \midrule
+    ResNet & Resnet18, Resnet34, Resnet50, Resnet102, Resnet152 \\
+    XResnet & XResnet18, XResnet34, XResnet50, XResnet102, XResnet152 \\
+    DenseNet & DensetNet121, DensetNet161, DensetNet169, DensetNet201 \\
+    VGG & VGG11\_bn, VGG13\_bn, VGG16\_bn, VGG19\_bn \\
+    \bottomrule
+    \end{tabular}
+    \label{tbl_architectures}
+\end{table}
+
+
+
 \subsubsection{训练结果}
-目前最好可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以大约 98\% 的正确率鉴别。
+目前最好可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以不低于 99.5\% 的正确率完成分类。
+
+
 
 \begin{figure}[H]
     \centering
