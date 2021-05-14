@@ -569,7 +569,7 @@ learn.fine_tune(10)
 
 
 \subsubsection{网络架构（Architecture）的选择}
-本论文测试了 CNN 下流行的架构，包括 ResNet, XResnet, DenseNet, VGG 等（见表 \ref{tbl_architectures}）。
+本论文测试了 CNN 下流行的架构，包括 ResNet, XResnet, DenseNet, VGG, SqueezeNet, ShuffleNet 等架构（见表 \ref{tbl_architectures}）。
 
 
 \begin{table}[H]
@@ -583,6 +583,8 @@ learn.fine_tune(10)
     XResnet & XResnet18, XResnet34, XResnet50, XResnet102, XResnet152 \\
     DenseNet & DensetNet121, DensetNet161, DensetNet169, DensetNet201 \\
     VGG & VGG11\_bn, VGG13\_bn, VGG16\_bn, VGG19\_bn \\
+    SqueezeNet & squeezenet1\_0, squeezenet1\_1 \\
+    ShuffleNet & shufflenet\_v2\_x0\_5, shufflenet\_v2\_x1\_0 \\
     \bottomrule
     \end{tabular}
     \label{tbl_architectures}
@@ -619,28 +621,102 @@ learn.fine_tune(10)
 \end{figure}
 
 
-除此之外，可以同时对 12 种核素以 80\% 的正确率完成分类。
+除此之外，可以同时对 12 种核素（35N90, 36N92, 37N95, 38N97, 39N100, 40N102, 52N134, 53N136, 54N139, 55N141, 56N144, 57N146）以不低于 80\% 的正确率完成分类。
+
+\begin{figure}[H]
+	\centering
+	\subfloat[Accuray]{
+        \includegraphics[width=0.5\textwidth]{figures/learn12-densenet201.png}
+    }
+	\subfloat[Loss]{
+        \includegraphics[width=0.5\textwidth]{figures/learn12-densenet201-loss.png}
+    }\\	
+    \caption{12 种核素训练结果（DenseNet201）}
+    \label{fig_learn12-densenet201}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\subfloat[Accuray]{
+        \includegraphics[width=0.5\textwidth]{figures/learn12-vgg16-bn.png}
+    }
+	\subfloat[Loss]{
+        \includegraphics[width=0.5\textwidth]{figures/learn12-vgg16-bn-loss.png}
+    }\\	
+    \caption{12 种核素训练结果（VGG16\_bn）}
+    \label{fig_learn12-vgg16-bn}
+\end{figure}
+
+
+本论文神经网络训练过程中使用了 ResNet, XResnet, DenseNet, VGG 等架构。经过统计，总体上 VGG 架构的训练结果最好，如上述表格中所示，对于 6 种核素的神经网络，使用 VGG 架构的模型在未过拟合（Over Fitting）之前可达到 99.8\% 的正确率，对于 12 种核素的神经网络，使用 VGG 架构的模型在未过拟合之前可达到 81.6\% 的正确率完成分类。ResNet, XResNet 以及 DenseNet 的训练结果比 VGG 稍差，6 种核素的正确率为 97\% 左右。SqueezeNet 和 ShuffleNet 架构的训练结果较差，不适合该模型。
+
+除此之外，神经网络的层数对训练结果的正确率有影响，经过统计，神经网络层数越多，模型更容易过拟合，但是同时也能在过拟合之前达到更高的正确率。因此，扩大训练数据集的容量以及增加神经网络的层数可以提高模型的最终正确率。
+
+
+
+\section{网络测试}
+下面使用 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）建立的模型对其他核素（见图 \ref{fig-other-nuclides}）进行测试。
+
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/train12.png}
-    \caption{Train 12}
-    \label{fig_train12}
+    \includegraphics[width=0.8\textwidth]{figures/other-nuclides.png}
+    \caption{测试的核素}
+    \label{fig-other-nuclides}
 \end{figure}
+
+测试实例代码如图 \ref{fig-test-code}：
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/test-code.png}
+    \caption{测试实例代码}
+    \label{fig-test-code}
+\end{figure}
+
+
+结果如图 \ref{fig-test-output}。
+数据表明，只用 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）建立的模型，就可以对图 \ref{fig-other-nuclides} 完成较好的鉴别分类。在本神经网络模型中，对训练结果影响最大的是径迹图像中的电子数目或像素的数目。而电子数目对应的是能损（dE/dx），由于模型中并没有使用三维径迹计算能损（dE/dx）并把能损用于训练模型，这是本模型的不足之处，因为本模型对图 \ref{fig-test-output} 中某些核素的测试结果很差。
+
+\begin{figure}[H]
+	\centering
+	\subfloat[37]{
+        \includegraphics[width=0.2\textwidth]{figures/37-result.png}
+    }
+    \subfloat[39]{
+        \includegraphics[width=0.2\textwidth]{figures/39-result.png}
+    }
+	\subfloat[40]{
+        \includegraphics[width=0.2\textwidth]{figures/40-result.png}
+    }\\	
+    \subfloat[52]{
+        \includegraphics[width=0.2\textwidth]{figures/52-result.png}
+    }
+    \subfloat[53]{
+        \includegraphics[width=0.2\textwidth]{figures/53-result.png}
+    }
+	\subfloat[55]{
+        \includegraphics[width=0.2\textwidth]{figures/55-result.png}
+    }\\	
+    \caption{测试结果}
+    \label{fig-test-output}
+\end{figure}
+
+
 
 
 
 \section{结果分析}
 与传统的的核物理分析手段相比，基于人工神经网络的鉴别方法不需要借助具体数学表达形式，这是它的独特优势。本论文中的人工神经网络基于 fastai 高阶抽象 API 建立，建模建立以及数据分析速度非常快。在模型建议过程中只需要操心输入层，并且后续可以非常容易地将已建立的模型应用于新的环境，只需要更换输入层的数据集即可。
 
-在建立人工神经网络模型中，数据的预处理毫无疑问是最重要的，它直接影响了后续的网络训练效果。对于本论文中人工神经网络模型的输入数据，它只包含了能量和射程信息。能量对应了 2D 径迹图片上的像素大小，射程对应了图片上黑色像素的范围。也正是因为输入层只包含能量和射程信息，网络模型能力才非常有限。实际上，除了上能量和射程信息外，还可以将粒子的能损（dE/dx）信息加入输入层，例如粒子的能损的最大值以及粒子能损的最大值出现在的位置等信息 \cite{闫洋洋2018用于高精度裂变截面测量的时间投影室}。
+在建立人工神经网络模型中，数据的预处理毫无疑问是最重要的，它直接影响了后续的网络训练效果。对于本论文中人工神经网络模型的输入数据，它只包含了能量和射程信息。能量对应了 2D 径迹图片上的像素大小，射程对应了图片上黑色像素的范围。也正是因为输入层只包含能量和射程信息，网络模型能力才非常有限。实际上，除了上能量和射程信息外，还可以将粒子的能损（dE/dx）信息加入输入层，例如粒子的能损的最大值以及粒子能损的最大值出现在的位置等信息 \cite{闫洋洋2018用于高精度裂变截面测量的时间投影室}，这样，后续的训练结果必然会更好。
 
 不管怎样，随着神经网络编程技术的不断发展，学习神经网络编程绝对会变得越来越容易，高阶抽象的神经网络 API 会越来越多、越来越容易使用，预训练好的模型（Pretrained Model，用来迁移学习）也会越来越多面。因此只要有足够可用的数据并对其进行正确的数据处理，再结合使用迁移学习（Transfer Learning），使用别人已经训练好的模型，那么后续开发和研究速度将会变得极速。
 
 
 
 \section{小结}
-本章从第二章生成的二维径迹图像数据出发，将径迹图像数据作为人工神经网络模型的输入，调用 基于 PyTorch 的 fasti 高阶 API，使用 ResNet50 进行迁移学习，建立了裂变碎片径迹图像的鉴别分类。建立的网络模型可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以大约 98\% 的准确率完成鉴别分类。
+本章从第二章生成的二维径迹图像数据出发，将径迹图像数据作为人工神经网络模型的输入，调用 基于 PyTorch 的 fasti 高阶 API，使用 ResNet, XResnet, DenseNet, VGG, SqueezeNet, ShuffleNet 等 CNN 架构进行迁移学习，建立了裂变碎片径迹图像的分类模型。建立的网络模型可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以不低于 99.5\% 的正确率完成鉴别分类。
 
 
 
@@ -655,7 +731,7 @@ learn.fine_tune(10)
 
 本论文从模拟计算产生的 U-235 裂变碎片事件数据出发，使用 SRIM 生成每一个核素的重离子能损表，然后使用 Garfield++ 调用 SRIM 的重离子能损表估算每一个裂变碎片在时间投影室内的径迹信息，完成裂变碎片的在时间投影室内的二维重建和三维径迹重建。
 
-之后使用 fastai，以二维径迹图像为输入数据，完成了裂变碎片径迹图像的鉴别分类。建立的网络模型最好可以同时对 6 种核素以大约 98\% 的准确率完成鉴别分类。
+之后使用 fastai，以二维径迹图像为输入数据，完成了裂变碎片径迹图像的鉴别分类。建立的网络模型最好可以同时对 6 种核素以不低于 99.5\% 的准确率完成核素分类，除此之还，还可以对 12 种核素以不低于 80\% 的正确率完成分类。
 
 
 
