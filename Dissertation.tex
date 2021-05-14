@@ -571,6 +571,7 @@ learn.fine_tune(10)
 \subsubsection{网络架构（Architecture）的选择}
 本论文测试了 CNN 下流行的架构，包括 ResNet, XResnet, DenseNet, VGG 等（见表 \ref{tbl_architectures}）。
 
+
 \begin{table}[H]
     \centering
     \caption{神经网络架构}
@@ -592,16 +593,33 @@ learn.fine_tune(10)
 \subsubsection{训练结果}
 目前最好可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以不低于 99.5\% 的正确率完成分类。
 
+\begin{figure}[H]
+	\centering
+	\subfloat[Accuray]{
+        \includegraphics[width=0.5\textwidth]{figures/learn6-resnet152.png}
+    }
+	\subfloat[Loss]{
+        \includegraphics[width=0.5\textwidth]{figures/learn6-resnet152-loss.png}
+    }\\	
+    \caption{6 种核素训练结果（ResNet152）}
+    \label{fig_learn6_resnet152}
+\end{figure}
 
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/train6.png}
-    \caption{Train 6}
-    \label{fig_train6}
+	\centering
+	\subfloat[Accuray]{
+        \includegraphics[width=0.5\textwidth]{figures/learn6-vgg19-bn.png}
+    }
+	\subfloat[Loss]{
+        \includegraphics[width=0.5\textwidth]{figures/learn6-vgg19-bn-loss.png}
+    }\\	
+    \caption{6 种核素训练结果（VGG19\_bn）}
+    \label{fig_learn6_vgg19-bn}
 \end{figure}
 
-除此之外，可以同时对 12 种核素以 80\% 的正确率完成鉴别。
+
+除此之外，可以同时对 12 种核素以 80\% 的正确率完成分类。
 
 \begin{figure}[H]
     \centering
