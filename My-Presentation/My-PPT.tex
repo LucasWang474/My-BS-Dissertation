@@ -70,146 +70,62 @@
     \item 对于裂变碎片的径迹重建仍然基于经典的离子能损理论。
     \item 如果将径迹简单地拟合为直线无法准确处理这种非线性效应。
     \end{itemize}
-  
-
-
+    
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.5\textwidth]{../figures/Snipaste_2021-05-20_16-39-55.png}
+    
+      \caption{模拟的裂变碎片径迹在读出板上的信号}
+      \label{fig-Test}
+  \end{figure}
 \end{frame}
 
 
 
-\begin{frame}
-  \frametitle{每一页内容位置}
+\begin{frame}[t]
+  \frametitle{深度学习人工神经网络的优点}
+  利用\textcolor{red}{机器学习}进行气体探测器径迹重建的算法研究
 
-  内容老是居中，我想让它居上怎么办？看下一页
+  $\linebreak$
+  $\linebreak$
 
-
-\end{frame}
-
-
-
-
-\begin{frame}[t]{每一页内容位置}
-
-  这句话在上面了吧，原因是上面那个[t]，默认[c]（居中）
-
-
-\end{frame}
-
-
-
-\section{主要内容}
-
-\begin{frame}
-  \frametitle{图并排}
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.3\textwidth]{lzu_logo.png}
-  
-    \caption{兰州大学（单图）\footnotesize 小字可以这么来}
-    \label{fig_lzu}
-\end{figure}
-  
-\end{frame}
-
-
-
-
-\begin{frame}
-  \frametitle{图并排}
-  \begin{figure}[H]
-    \centering
-    \subfloat[图1]{
-        \label{fig_lzus_0}
-        \includegraphics[width=0.3\textwidth]{lzu_logo.png}
-    }
-    \subfloat[图2]{
-        \label{fig_lzus_1}
-        \includegraphics[width=0.3\textwidth]{lzu_logo.png}
-    }\\
-    \caption{兰州大学}
-    \label{fig_lzus}
-\end{figure}
-  
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{表格}
-  \begin{table}[H]
-    \centering
-    \caption{纳米管参数}
-    \begin{tabular}{cccccc} % 控制表格的格式
-        \toprule
-        参数 & m  & n  & 原子数 & 内径     & 长度    \\
-        \midrule
-        二硫化钼纳米管  & 15 & 15 & 3420   & 2.3014nm & 11.85nm \\
-        碳纳米管  & 16 & 6  & 1112   & 1.5424nm & 6.0nm   \\
-        \bottomrule
-    \end{tabular}
-    \label{tbl_mcnt_nanotube}
-\end{table}
-\end{frame}
-
-\begin{frame}
-\frametitle{左右分栏}
-去掉 pause  就不会变成两页了
-  \begin{columns}
-  \column{0.6\textwidth}
-
-    \begin{itemize}
-    \item Ice Age
-    \item The Hobbit
-    \item The Great Gatsby
+  深度学习人工神经网络的优点：
+  \begin{itemize}
+    \item 能够近似模拟任何数学函数。
+    \item 人工神经网络对非线性数据具有最好的甄别效果。
+    \item 易于实现。
     \end{itemize}
-  \pause
-  \column{0.4\textwidth}
-    \begin{itemize}
-    \item 冰河世纪
-    \item 霍比特人
-    \item 了不起的盖茨比
-    \end{itemize}
-  \end{columns}
-\end{frame}
-
-
-
-
-
-\begin{frame}
-  \frametitle{分步动画}
-
-
-  \onslide<1>{
-    第一步显示这一句话，第二步时消失
-  }
-  \onslide<2,3>{
-    \begin{block}{解析：}
-      第二、三步显示这一句话
-    \end{block}
-  }
-
-  \onslide<3>{
-    只有第三步显示这一句话
-  }
 
 \end{frame}
 
 
+
+
+
+
+
+
+\section{基于裂变时间投影室的径迹重建}
+
+
+% 第二章从模拟计算产生的 $^{235}$U 裂变碎片事件数据出发。使用 fortran 的 fissionlib 计算 1 MeV 中子轰击 $^{235}$U 后的产物分布，共生成 200000 例事件。
+% 之后统计 200000 例裂变事件中的核素，使用 SRIM 生成每一个核素的重离子能损表。
+% 最后使用 Garfield++ 调用 SRIM 的重离子能损表估算每一个裂变碎片在时间投影室内的径迹信息，完成裂变碎片的在时间投影室内的二维重建和三维径迹重建。
+
+
+% 本章从使用 fissionlib 模拟 1 MeV 中子轰击 $^{235}$U 模拟生成的 200000 个裂变事件出发，借助 Garfield++（及其依赖的 Geant4 和 ROOT）和 Srim，模拟了裂变时间投影室以及裂变碎片在时间投影室室腔内的漂移，进而产生径迹信息。径迹信息包含电子在读出板上的坐标以及电子到达读出板上的时间等信息。
+% 借助这些径迹信息以及利用 Garfield++ 计算出的漂移速度，完成了径迹的二维重建和三维重建。
+
+
+
+
+
+\section{基于人工神经网络的裂变碎片分类模型}
 
 
 
 
 \section{总结展望}
-
-\begin{frame}
-  \frametitle{测试}
-
-  \begin{block}{方框}
-    测试一下，参考一篇文献
-  \end{block}
-
-\end{frame}
-
 
 
 
