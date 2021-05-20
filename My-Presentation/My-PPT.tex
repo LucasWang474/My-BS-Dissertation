@@ -8,9 +8,14 @@
 \subtitle{利用机器学习进行气体探测器径迹重建的算法研究}
 
 \author{答辩人：王文军}
-\institute{指导老师：张毅教授}
+\institute{指导老师：张毅}
 \date{\today}
 \titlegraphic{\includegraphics[height=0.15\textwidth]{lzu_logo.png}}
+
+
+
+  
+
 
 
 \begin{document}
@@ -25,25 +30,50 @@
   \end{frame}
 }
 
+
+
+
+
 \section{研究背景}
-\subsection{三级标题}
+\subsection{基于裂变时间投影室的新型核裂变测量技术}
+\begin{frame}[c]{基于裂变时间投影室的新型核裂变测量技术}
+利用机器学习进行\textcolor{red}{气体探测器径迹重建}的算法研究
 
 
-\begin{frame}[c]{列表怎么用}
-就是下面这么用，前面是个点点，原因是我在模板里自定义了，你可以修改，模板中搜索：列表前面的点点自定义
-  \begin{itemize}
-  \item 简捷易行
-  \item 保存原文的格调和“洋味”
-  \item[1] 你是可以用数字的
-  \item[2] 你是可以用数字的
-  \end{itemize}
-还有这一种，也挺好看的
-  \begin{enumerate}
-    \item 测试
-    \item 测试
-  \end{enumerate}
+  \frametitle{基于裂变时间投影室的新型核裂变测量技术}
+  \begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{../figures/GEM-TPC.png}
+
+  \caption{裂变时间投影室探测系统（论文 P6）}
+  \label{fig-GEM-TPC}
+  \end{figure}
+  
 \end{frame}
 
+
+
+\begin{frame}
+  \frametitle{时间投影室的应用}
+  \begin{itemize}
+    \item 许多大型高能粒子实验都采用其作为中心径迹探测器, 比较著名的有LEP实验的ALEPH, DELPHI, BNL的 STAR, LHC的ALICE等等。
+    \item MicroBooNE Collaboration 应用卷积神经网络完成了对时间投影室产生的径迹数据的算法研究。算法包括多粒子径迹图片的分类（Classification）、多粒子径迹图片中的空间定位（Localization）。
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{时间投影室的目前的局限}
+  \begin{itemize}
+    \item 对于裂变碎片的鉴别尚处于空白。
+    \item 对于裂变碎片的径迹重建仍然基于经典的离子能损理论。
+    \item 如果将径迹简单地拟合为直线无法准确处理这种非线性效应。
+    \end{itemize}
+  
+
+
+\end{frame}
 
 
 
@@ -54,6 +84,9 @@
 
 
 \end{frame}
+
+
+
 
 \begin{frame}[t]{每一页内容位置}
 
@@ -77,6 +110,10 @@
 \end{figure}
   
 \end{frame}
+
+
+
+
 \begin{frame}
   \frametitle{图并排}
   \begin{figure}[H]
@@ -134,6 +171,10 @@
   \end{columns}
 \end{frame}
 
+
+
+
+
 \begin{frame}
   \frametitle{分步动画}
 
@@ -153,41 +194,21 @@
 
 \end{frame}
 
+
+
+
+
+
 \section{总结展望}
 
 \begin{frame}
   \frametitle{测试}
 
   \begin{block}{方框}
-    测试一下，参考一篇文献\cite{partl2016}
+    测试一下，参考一篇文献
   \end{block}
 
 \end{frame}
-
-
-\section{参考文献}
-\begin{frame}[t]
-  \frametitle{参考文献}
-  % 这里会把ppt引用的参考文献全部在这里显示
-  \bibliographystyle{bib/lzubib}
-  \bibliography{bib/database}
-  
-\end{frame}
-
-\section{致谢}
-
-\begin{frame}[t]
-\frametitle{致谢}
-  % 注意致谢内容答辩时不要读出来，播放到这里就可以了
-  \begin{itemize}
-  \item 感谢老师
-  \item 感谢同学
-  \item 感谢学校
-  \item 感谢父母
-  \item 也可以感谢我 ~
-  \end{itemize}
-\end{frame}
-
 
 
 
