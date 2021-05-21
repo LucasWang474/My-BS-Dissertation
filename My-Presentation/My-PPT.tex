@@ -101,32 +101,130 @@
 
 
 
-
-
-
-
 \section{基于裂变时间投影室的径迹重建}
+\begin{frame}[c]
+  \frametitle{径迹重建流程}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/flowchart.png}
+    \caption{径迹重建流程}
+    \label{fig-flowchart1}
+    \end{figure}
+
+    
+\end{frame}
 
 
-% 第二章从模拟计算产生的 $^{235}$U 裂变碎片事件数据出发。使用 fortran 的 fissionlib 计算 1 MeV 中子轰击 $^{235}$U 后的产物分布，共生成 200000 例事件。
-% 之后统计 200000 例裂变事件中的核素，使用 SRIM 生成每一个核素的重离子能损表。
-% 最后使用 Garfield++ 调用 SRIM 的重离子能损表估算每一个裂变碎片在时间投影室内的径迹信息，完成裂变碎片的在时间投影室内的二维重建和三维径迹重建。
-
-
-% 本章从使用 fissionlib 模拟 1 MeV 中子轰击 $^{235}$U 模拟生成的 200000 个裂变事件出发，借助 Garfield++（及其依赖的 Geant4 和 ROOT）和 Srim，模拟了裂变时间投影室以及裂变碎片在时间投影室室腔内的漂移，进而产生径迹信息。径迹信息包含电子在读出板上的坐标以及电子到达读出板上的时间等信息。
-% 借助这些径迹信息以及利用 Garfield++ 计算出的漂移速度，完成了径迹的二维重建和三维重建。
+\begin{frame}[c]
+  \frametitle{二维径迹图像}
+    \begin{figure}[H]
+      \centering
+      \subfloat[37N95]{
+            \includegraphics[width=0.3\textwidth]{../figures/0.00236_-0.4095_0.91231.out_all_electrodes_double.png}
+        }
+      \subfloat[37N95]{
+            \includegraphics[width=0.3\textwidth]{../figures/0.571_0.48881_0.65957.out_all_electrodes_double.png}
+        }
+      \subfloat[37N95]{
+            \includegraphics[width=0.3\textwidth]{../figures/-0.7673_-0.39935_-0.50177.out_all_electrodes_double.png}
+        }\\	
+        \caption{二维径迹图}
+        \label{fig_track_2d_2}
+    \end{figure}
+\end{frame}
 
 
 
 
 
 \section{基于人工神经网络的裂变碎片分类模型}
+\begin{frame}[c]
+  \frametitle{使用 fastai 搭建人工神经网络}
 
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{../figures/flowchart3.png}
+    \caption{神经网络模型建立流程}
+    \label{fig-flowchart3}
+    \end{figure}
+  
+    CNN (Convolutional Neural Network, 卷积神经网络) 模型：ResNet, XResNet, DenseNet, VGG, SqueezeNet, ShuffleNet
+\end{frame}
+
+
+
+\begin{frame}[c]
+  \frametitle{训练结果}
+  目前最好可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以不低于 99.5\% 的正确率完成分类。
+  \begin{figure}[H]
+    \centering
+    \subfloat[Accuray]{
+          \includegraphics[width=0.4\textwidth]{../figures/learn6-vgg19-bn.png}
+      }
+    \subfloat[Loss]{
+          \includegraphics[width=0.4\textwidth]{../figures/learn6-vgg19-bn-loss.png}
+      }\\	
+      \caption{6 种核素训练结果（VGG19\_bn）}
+      \label{fig_learn6_vgg19-bn}
+  \end{figure}
+  
+\end{frame}
+
+
+\begin{frame}[c]
+  \frametitle{网络测试}
+
+  \begin{figure}[H]
+    \centering
+    \subfloat[37]{
+          \includegraphics[width=0.2\textwidth]{../figures/37-result.png}
+      }
+      \subfloat[39]{
+          \includegraphics[width=0.2\textwidth]{../figures/39-result.png}
+      }
+    \subfloat[40]{
+          \includegraphics[width=0.2\textwidth]{../figures/40-result.png}
+      }\\	
+      \subfloat[52]{
+          \includegraphics[width=0.2\textwidth]{../figures/52-result.png}
+      }
+      \subfloat[53]{
+          \includegraphics[width=0.2\textwidth]{../figures/53-result.png}
+      }
+    \subfloat[55]{
+          \includegraphics[width=0.2\textwidth]{../figures/55-result.png}
+      }\\	
+      \caption{测试结果}
+      \label{fig-test-output}
+  \end{figure}
+  
+\end{frame}
 
 
 
 \section{总结展望}
 
+\begin{frame}[c]
+  \frametitle{总结}
+  本论文从模拟计算产生的 $^{235}$U 裂变碎片事件数据出发，使用 SRIM 生成每一个核素的重离子能损表，然后使用 Garfield++ 调用 SRIM 的重离子能损表估算每一个裂变碎片在时间投影室内的径迹信息，完成裂变碎片的在时间投影室内的二维重建和三维径迹重建。
+
+  $\linebreak$
+
+之后使用 fastai，以二维径迹图像为输入数据，完成了裂变碎片径迹图像的鉴别分类。建立的网络模型最好可以同时对 6 种核素以不低于 99.5\% 的准确率完成核素分类，除此之还，还可以对 12 种核素以不低于 80\% 的正确率完成分类。
+  
+\end{frame}
+
+
+\begin{frame}[c]
+  \frametitle{展望}
+  \begin{itemize}
+    \item 增大数据量（单个核素径迹数、总核素数目）
+    \item 提高径迹数据精度
+    \item 将粒子的能损（dE/dx）信息加入输入层
+    \end{itemize}
+  
+\end{frame}
 
 
 
