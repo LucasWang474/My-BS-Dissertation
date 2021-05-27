@@ -367,7 +367,7 @@ Garfield++ 的代码开源公布在 GitLab 上，如果你想 build Garfiled++ �
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/output.png}
+    \includegraphics[width=0.6\textwidth]{figures/output.png}
     \caption{裂变时间投影室模拟的径迹数据}
     \label{fig_output}
 \end{figure}
@@ -382,13 +382,13 @@ Garfield++ 的代码开源公布在 GitLab 上，如果你想 build Garfiled++ �
 
 \begin{figure}[H]
 	\centering
-	\subfloat[37N95]{
+	\subfloat[$^{95}$Rb]{
         \includegraphics[width=0.3\textwidth]{figures/0.00236_-0.4095_0.91231.out_all_electrons.png}
     }
-	\subfloat[37N95]{
+	\subfloat[$^{95}$Rb]{
         \includegraphics[width=0.3\textwidth]{figures/0.571_0.48881_0.65957.out_all_electrons.png}
     }
-	\subfloat[37N95]{
+	\subfloat[$^{95}$Rb]{
         \includegraphics[width=0.3\textwidth]{figures/-0.7673_-0.39935_-0.50177.out_all_electrons.png}
     }\\	
     \caption{二维径迹图 1}
@@ -400,13 +400,13 @@ Garfield++ 的代码开源公布在 GitLab 上，如果你想 build Garfiled++ �
 
 \begin{figure}[H]
 	\centering
-	\subfloat[37N95]{
+	\subfloat[$^{95}$Rb]{
         \includegraphics[width=0.3\textwidth]{figures/0.00236_-0.4095_0.91231.out_all_electrodes_double.png}
     }
-	\subfloat[37N95]{
+	\subfloat[$^{95}$Rb]{
         \includegraphics[width=0.3\textwidth]{figures/0.571_0.48881_0.65957.out_all_electrodes_double.png}
     }
-	\subfloat[37N95]{
+	\subfloat[$^{95}$Rb]{
         \includegraphics[width=0.3\textwidth]{figures/-0.7673_-0.39935_-0.50177.out_all_electrodes_double.png}
     }\\	
     \caption{二维径迹图 2}
@@ -599,7 +599,9 @@ learn.fine_tune(10)
 
 
 \subsubsection{训练结果}
-目前最好可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以不低于 99.5\% 的正确率完成分类。
+% 目前最好可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以不低于 99.5\% 的正确率完成分类。
+
+目前最好可以同时对 6 种核素的径迹（$^{95}$Rb, $^{100}$Y, $^{102}$Zr, $^{134}$Te, $^{136}$I, $^{141}$Cs）以不低于 99.5\% 的正确率完成分类。
 
 \begin{figure}[H]
 	\centering
@@ -626,8 +628,8 @@ learn.fine_tune(10)
     \label{fig_learn6_vgg19-bn}
 \end{figure}
 
-
-除此之外，可以同时对 12 种核素（35N90, 36N92, 37N95, 38N97, 39N100, 40N102, 52N134, 53N136, 54N139, 55N141, 56N144, 57N146）以不低于 80\% 的正确率完成分类。
+% 除此之外，可以同时对 12 种核素（35N90, 36N92, 37N95, 38N97, 39N100, 40N102, 52N134, 53N136, 54N139, 55N141, 56N144, 57N146）以不低于 80\% 的正确率完成分类。
+除此之外，可以同时对 12 种核素的径迹（$^{90}$Br, $^{92}$Kr, $^{95}$Rb, $^{97}$Sr, $^{100}$Y, $^{102}$Zr, $^{134}$Te, $^{136}$I, $^{139}$Xe, $^{141}$Cs, $^{144}$Ba, $^{146}$La）以不低于 80\% 的正确率完成分类。
 
 \begin{figure}[H]
 	\centering
@@ -661,15 +663,33 @@ learn.fine_tune(10)
 
 
 \section{网络测试}
-下面使用 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）建立的模型对其他核素（见图 \ref{fig-other-nuclides}）进行测试。
+下面使用 6 种核素（$^{95}$Rb, $^{100}$Y, $^{102}$Zr, $^{134}$Te, $^{136}$I, $^{141}$Cs）建立的模型对其他核素（见表 \ref{tbl-tested-nuclides}）进行测试。
 
-
-\begin{figure}[H]
+\begin{table}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/other-nuclides.png}
     \caption{测试的核素}
-    \label{fig-other-nuclides}
-\end{figure}
+    \begin{tabular}{cc} % 控制表格的格式，可以是l,c,r
+    \toprule
+    元素 & 核素 \\
+    \midrule
+    Rb & $^{92}$Rb, $^{93}$Rb, $^{94}$Rb, $^{96}$Rb, $^{97}$Rb \\
+    Y& $^{97}$Y, $^{98}$Y, $^{99}$Y, $^{101}$Y, $^{102}$Y, $^{103}$Y \\
+    Zr& $^{99}$Zr, $^{100}$Zr, $^{101}$Zr, $^{103}$Zr, $^{104}$Zr \\
+    Te& $^{132}$Te, $^{133}$Te, $^{135}$Te, $^{136}$Te, $^{137}$Te \\
+    I& $^{133}$I, $^{134}$I, $^{135}$I, $^{137}$I, $^{138}$I, $^{139}$I, $^{140}$I, $^{141}$I \\
+    Cs&  $^{139}$Cs, $^{140}$Cs, $^{142}$Cs, $^{143}$Cs, $^{144}$Cs\\
+    \bottomrule
+    \end{tabular}
+    \label{tbl-tested-nuclides}
+\end{table}
+
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{figures/other-nuclides.png}
+%     \caption{测试的核素}
+%     \label{fig-other-nuclides}
+% \end{figure}
 
 测试示例代码如图 \ref{fig-test-code}：
 
@@ -681,34 +701,52 @@ learn.fine_tune(10)
 \end{figure}
 
 
-结果如图 \ref{fig-test-output}。
-数据表明，使用 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）建立的模型，可以对图 \ref{fig-other-nuclides} 中相应的同位素完成较理想的鉴别分类。在本神经网络模型中，对训练结果影响最大的是径迹图像中的电子数目。而电子数目对应的是能损（dE/dx），由于模型中并没有使用三维径迹计算能损（dE/dx）并把能损用于训练模型，这是本模型的不足之处，也是本模型对图 \ref{fig-test-output} 中某些核素的测试结果很差的原因。
+结果如表 \ref{tbl-test-result}。
+数据表明，使用 6 种核素（$^{95}$Rb, $^{100}$Y, $^{102}$Zr, $^{134}$Te, $^{136}$I, $^{141}$Cs）建立的模型，可以对表 \ref{tbl-tested-nuclides} 中相应的同位素完成较理想的鉴别分类。在本神经网络模型中，对训练结果影响最大的是径迹图像中的电子数目。而电子数目对应的是能损（dE/dx），由于模型中并没有使用三维径迹计算能损（dE/dx）并把能损用于训练模型，这是本模型的不足之处，也是本模型对表 \ref{tbl-test-result} 中某些核素的测试结果很差的原因。
 
-\begin{figure}[H]
-	\centering
-	\subfloat[37]{
-        \includegraphics[width=0.2\textwidth]{figures/37-result.png}
-    }
-    \subfloat[39]{
-        \includegraphics[width=0.2\textwidth]{figures/39-result.png}
-    }
-	\subfloat[40]{
-        \includegraphics[width=0.2\textwidth]{figures/40-result.png}
-    }\\	
-    \subfloat[52]{
-        \includegraphics[width=0.2\textwidth]{figures/52-result.png}
-    }
-    \subfloat[53]{
-        \includegraphics[width=0.2\textwidth]{figures/53-result.png}
-    }
-	\subfloat[55]{
-        \includegraphics[width=0.2\textwidth]{figures/55-result.png}
-    }\\	
+\begin{table}[H]
+    \centering
     \caption{测试结果}
-    \label{fig-test-output}
-\end{figure}
+    \begin{tabular}{cc} % 控制表格的格式，可以是l,c,r
+    \toprule
+    元素 & 核素预测概率 \\
+    \midrule
+    Rb & $^{92}$Rb (0.1646), $^{93}$Rb (1.0), $^{94}$Rb (1.0), $^{96}$Rb (0.236), $^{97}$Rb (1.0) \\
+    Y& $^{97}$Y (1.0), $^{98}$Y (0.9359), $^{99}$Y (1.0), $^{101}$Y (1.0), $^{102}$Y (0.0), $^{103}$Y (0.0) \\
+    Zr& $^{99}$Zr (0.0), $^{100}$Zr (0.8333), $^{101}$Zr (0.6374), $^{103}$Zr (0.4894), $^{104}$Zr (0.1647) \\
+    Te& $^{132}$Te (0.3412), $^{133}$Te (0.0213), $^{135}$Te (0.1978), $^{136}$Te (0.8958), $^{137}$Te (0.0759) \\
+    I& $^{133}$I (1.0), $^{134}$I (1.0), $^{135}$I (0.9545), $^{137}$I (1.0), $^{138}$I (1.0), $^{139}$I (0.0482), $^{140}$I (0.8636), $^{141}$I (1.0) \\
+    Cs&  $^{139}$Cs (0.0), $^{140}$Cs (0.0), $^{142}$Cs (1.0), $^{143}$Cs (0.9634), $^{144}$Cs (1.0)\\
+    \bottomrule
+    \end{tabular}
+    \label{tbl-test-result}
+\end{table}
 
-图 \ref{fig-test-output} 中核素的概率指模型预测概率大于 0.5 的测试数据占总测试数据的比率，而不是模型预测核素的平均正确率。
+% \begin{figure}[H]
+% 	\centering
+% 	\subfloat[37]{
+%         \includegraphics[width=0.2\textwidth]{figures/37-result.png}
+%     }
+%     \subfloat[39]{
+%         \includegraphics[width=0.2\textwidth]{figures/39-result.png}
+%     }
+% 	\subfloat[40]{
+%         \includegraphics[width=0.2\textwidth]{figures/40-result.png}
+%     }\\	
+%     \subfloat[52]{
+%         \includegraphics[width=0.2\textwidth]{figures/52-result.png}
+%     }
+%     \subfloat[53]{
+%         \includegraphics[width=0.2\textwidth]{figures/53-result.png}
+%     }
+% 	\subfloat[55]{
+%         \includegraphics[width=0.2\textwidth]{figures/55-result.png}
+%     }\\	
+%     \caption{测试结果}
+%     \label{fig-test-output}
+% \end{figure}
+
+表 \ref{tbl-test-result} 中核素的概率指模型预测概率大于 0.5 的测试数据占总测试数据的比率，而不是模型预测核素的平均正确率。
 
 
 
@@ -722,7 +760,7 @@ learn.fine_tune(10)
 
 
 \section{小结}
-本章从第二章生成的二维径迹图像数据出发，将径迹图像数据作为人工神经网络模型的输入，调用基于 PyTorch 的 fasti 高阶 API，使用 ResNet, XResNet, DenseNet, VGG, SqueezeNet, ShuffleNet 等 CNN 架构进行迁移学习，建立了裂变碎片径迹图像的分类模型。建立的网络模型可以同时对 6 种核素（39N100, 53N136, 37N95, 55N141, 40N102, 52N134）以不低于 99.5\% 的正确率完成鉴别分类。
+本章从第二章生成的二维径迹图像数据出发，将径迹图像数据作为人工神经网络模型的输入，调用基于 PyTorch 的 fasti 高阶 API，使用 ResNet, XResNet, DenseNet, VGG, SqueezeNet, ShuffleNet 等 CNN 架构进行迁移学习，建立了裂变碎片径迹图像的分类模型。建立的网络模型可以同时对 6 种核素（$^{95}$Rb, $^{100}$Y, $^{102}$Zr, $^{134}$Te, $^{136}$I, $^{141}$Cs）以不低于 99.5\% 的正确率完成鉴别分类。
 
 
 
